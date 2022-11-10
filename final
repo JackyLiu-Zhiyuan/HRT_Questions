@@ -1,0 +1,105 @@
+def arrChange(arr):
+    for i in range(0,len(arr)-1,2):
+        pointer_one = i
+        pointer_two = i + 1
+
+        if arr[pointer_one] > arr[pointer_two]:
+            swap(pointer_one,pointer_two,arr)
+
+    return arr
+
+def swap(i,j,arr):
+    arr[i],arr[j] = arr[j], arr[i]
+
+
+
+
+input = ["cd users", "cd codesignal", "cd ..", "cd admin"]
+
+def changeDirectory(input):
+    array = []
+    sol = []
+    sol.append("")
+    for element in input:
+        first_element,second_element = element.split(" ")
+        array.append(second_element)
+
+    for i in range(len(array)):
+        if i == 0 and array[i] == "..":
+            continue
+        if array[i] != "..":
+            sol.append(array[i])
+        else:
+            sol.pop()
+
+    return "/".join(sol)
+
+
+
+
+changeDirectory(input)
+
+
+
+# // should retunr "/users/admin"
+
+
+
+
+def matrixManipulate(a,q):
+    for element in q:
+        if element == 0:
+            rotateMatrix(a)
+        elif element == 1:
+            reflectMain(a)
+        elif element == 2:
+            reflectSecond(a)
+
+    return a
+
+def rotateMatrix(A):
+    N = len(A[0])
+    for i in range(N // 2):
+        for j in range(i, N - i - 1):
+            temp = A[i][j]
+            A[i][j] = A[N - 1 - j][i]
+            A[N - 1 - j][i] = A[N - 1 - i][N - 1 - j]
+            A[N - 1 - i][N - 1 - j] = A[j][N - 1 - i]
+            A[j][N - 1 - i] = temp
+    return A
+
+def reflectMain(a):
+    n = len(a[0])
+    for i in range(n):
+        for j in range(i + 1):
+            t = a[i][j];
+            a[i][j] = a[j][i]
+            a[j][i] = t
+    return a
+
+def reflectSecond(a):
+    n = len(a[0])
+    for i in range(n-1):
+        for j in range(n-1-i):
+            t = a[i][j];
+            a[i][j] = a[(n - 1) - j][(n - 1) - i];
+            a[(n - 1) - j][(n - 1) - i] = t;
+    return a
+
+
+
+def uniqueColor(queries):
+    sol = []
+    dictionary = {}
+    for element in queries:
+        position, color = element
+        dictionary[position] = color
+        temp = getUnique(dictionary)
+        sol.append(temp)
+    return sol
+
+def getUnique(dictionary):
+    visited = set()
+    for item in dictionary:
+        visited.add(dictionary[item])
+    return len(visited)
